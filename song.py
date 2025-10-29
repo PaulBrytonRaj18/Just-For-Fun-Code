@@ -24,9 +24,9 @@ def song_play():
             sys.stdout.write(char)
             sys.stdout.flush()
             time.sleep(0.1)  # Typing effect
-        print()  # New line after each verse
+        print() 
         time.sleep(delay[i])  # Pause for the specified delay between verses
-    time.sleep(1)  # Final pause before ending
+    time.sleep(1) 
     
 if __name__ == "__main__":
     song_play()
