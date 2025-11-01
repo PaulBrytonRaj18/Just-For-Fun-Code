@@ -172,7 +172,7 @@ dares = [
 
 
 def get_random_truth_or_dare():
-    return "Dare: " + random.choice(dares) + "\nOR\n" + "Truth: " + random.choice(truths)
+    return "Dare: " + random.choice(dares) + "\nOR\n" + "Truth: " + random.choice(truths) + "\n"
 
 
 if __name__ == "__main__":
@@ -180,10 +180,10 @@ if __name__ == "__main__":
     print("Play with your friends and have fun.")
     user_input = int(input("How many Games do you want to play? "))
     print("Pick any one from the Following Truth and Dare Question")
-    time.sleep(1)
+    time.sleep(3)
     for _ in range(user_input):
         print(get_random_truth_or_dare())
-    time.sleep(1)
-    print("Good Luck!")
+    time.sleep(3)
+    print("\nGood Luck!")
     print("Thanks for playing! Goodbye!")
     exit()
