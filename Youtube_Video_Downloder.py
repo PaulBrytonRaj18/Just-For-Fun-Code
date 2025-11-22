@@ -103,6 +103,7 @@ def main():
         print(f"\n✓ Found: {video_title}")
         print(f"URL: {video_url}")
         is_correct_video(video_title, song_name)
+        download_video(video_url)
         
     else:
         print("\n✗ No results found. Please try a different search term.")
