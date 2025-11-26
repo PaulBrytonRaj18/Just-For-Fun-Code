@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Futuristic Song Downloader</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Fallback styles for instant look before external CSS loads */
+    body {
+      margin: 0;
+      background: linear-gradient(120deg, #0f2027, #2c5364 100%);
+      color: #E5F9FF;
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+    #root {
+      width: 100%;
+      max-width: 460px;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.15);
+      border-radius: 18px;
+      background: rgba(44,83,100, 0.98);
+      padding: 36px 24px;
+      text-align: center;
+    }
+    .futuristic-title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      background: linear-gradient(90deg,#43cea2,#185a9d,#fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+    .subtitle {
+      font-weight: 500;
+      color: #bfe8fa;
+      margin-bottom: 18px;
+      font-size: 1.1rem;
+    }
+    .input-group {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.09);
+      border-radius: 8px;
+      padding: 0 10px;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.05rem;
+      background: transparent;
+      color: #E5F9FF;
+      outline: none;
+    }
+    input[type="text"]::placeholder {
+      color: #a6b7c6;
+      font-style: italic;
+    }
+    button {
+      margin-left: 9px;
+      padding: 12px 22px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 700;
+      background: linear-gradient(90deg,#43cea2,#185a9d 70%);
+      color: #fff; font-size: 1.15rem;
+      cursor: pointer;
+      transition: background 0.23s;
+    }
+    button:active {
+      background: linear-gradient(90deg,#185a9d 85%,#43cea2 100%);
+    }
+    .results {
+      margin: 28px 0 0 0;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.08);
+      padding: 14px 10px;
+    }
+    .result-card {
+      padding: 11px 12px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      background: rgba(0,0,0,0.11);
+      text-align: left;
+      transition: box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .result-card.selected {
+      box-shadow: 0 0 0 3px #43cea2, 0 1px 7px #2c536466;
+      background: rgba(67,206,162,0.12);
+    }
+    .song-title {
+      font-size: 1.12rem;
+      font-weight: 600;
+      color: #f4faff;
+      margin-bottom: 2px;
+    }
+    .song-url {
+      font-size: 0.92rem;
+      color: #aacbe4;
+    }
+    .download-status {
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 7px;
+      background: #262a3b;
+      font-size: 1.05rem;
+      color: #ffef70;
+      font-weight: 600;
+      letter-spacing: 0.1px;
+      box-shadow: 0 1px 5px #43cea240;
+    }
+    @media (max-width: 540px) {
+      #root {
+        padding: 22px 2vw;
+        max-width: 98vw;
+      }
+      .futuristic-title {font-size: 1.6rem;}
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <h1 class="futuristic-title">Futuristic Song Downloader</h1>
+    <div class="subtitle">
+      Find any YouTube song, preview, and download as MP3.<br>
+      (Backend Required: Python + Google API + yt-dlp)
+    </div>
+    <div class="input-group">
+      <input type="text" id="songQuery" placeholder="Type song name...">
+      <button id="searchBtn">Search</button>
+    </div>
+    <div id="results" class="results" style="display:none"></div>
+    <div id="status"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
