@@ -3,6 +3,15 @@ import sys
 import json
 import dotenv
 from googleapiclient.discovery import build
+from flask import Flask, request, jsonify, render_template 
+
+
+app = Flask(__name__)
+
+
+@app.route("/")
+def index():
+    return render_template("Youtube_Video_Downloder.html")
 
 # Load environment variables from .env file
 dotenv.load_dotenv(dotenv_path=".env", override=True)
