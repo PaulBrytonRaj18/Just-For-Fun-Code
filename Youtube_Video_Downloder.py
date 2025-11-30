@@ -77,7 +77,7 @@ def download_video(video_url) -> None:
     
     try:
         # Construct the yt-dlp command
-        command = f'cd "{os.getenv("YOUR_DOWNLOAD_DIRECTORY")}" && yt-dlp -x --audio-format mp3 "{video_url}"'
+        command = f'cd "{os.getenv("YOUR_VIDEO_DOWNLOAD_DIRECTORY")}" && yt-dlp "{video_url}"'
         
         # Execute the command
         os.system(command)
@@ -87,6 +87,26 @@ def download_video(video_url) -> None:
     except Exception as e:
         print(f"An error occurred during download: {e}")
 
+def download_music(video_url) -> None:
+    """
+    Download a YouTube video using yt-dlp
+    
+    Args:
+        video_url (str): Full YouTube URL of the video to download
+    """
+    
+    
+    try:
+        # Construct the yt-dlp command
+        command = f'cd "{os.getenv("YOUR_MUSIC_DOWNLOAD_DIRECTORY")}" && yt-dlp -x --audio-format mp3 "{video_url}"'
+        
+        # Execute the command
+        os.system(command)
+        
+        print("Download completed successfully.")
+        
+    except Exception as e:
+        print(f"An error occurred during download: {e}")
 
 
 def main():
