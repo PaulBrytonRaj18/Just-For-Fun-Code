@@ -197,7 +197,7 @@
 
     /* --- Container & Base --- */
     .envelope-container {
-        display: flex;
+        display: none;
         justify-content: center;
         align-items: center;
         /* Use relative positioning for placement */
@@ -228,6 +228,7 @@
 
     /* --- Inner Letter Card --- */
     .letter-card {
+        display: none;
         position: absolute;
         width: 90%;
         height: 90%;
@@ -298,20 +299,18 @@
             <h1>Hey <span class="name-target">X</span>!</h1>
             <p>I have a special birthday surprise for you, but it's locked inside a game!</p>
             <p style="font-size: 0.9rem; color: #888;">(Pop 10 balloons to win)</p>
-            <button class="btn" onclick="startGame()">Start Game 🎈</button>
+            <button class="btn" id="start-game-btn">Start Game 🎈</button>
         </div>
 
-        <div class="envelope-container" onclick="openEnvelope(this)">
-    <div class="envelope">
-        <div class="envelope-back"></div>
-        
-        <div class="letter-card" id="final-content">
-            <p id="message-content">Your Awesome Birthday Message Goes Here!</p>
+        <div class="envelope-container" id="envelope-container">
+            <div class="envelope">
+                <div class="envelope-back"></div>
+                <div class="letter-card" id="final-content">
+                    <p id="message-content">Your Awesome Birthday Message Goes Here!</p>
+                </div>
+                <div class="envelope-flap"></div>
+            </div>
         </div>
-        
-        <div class="envelope-flap"></div>
-    </div>
-</div>
     </div>
 
     <div id="game-layer">
@@ -321,23 +320,35 @@
     <script>
         // CONFIGURATION
         const name = "X"; // <--- CHANGE NAME HERE
+        const birthdayMessage = "Happy Birthday! I hope you have a wonderful day filled with joy and laughter. Wishing you all the best for the coming year! 🥳"; // <--- CHANGE MESSAGE HERE
 
         // Apply Name
         document.querySelectorAll('.name-target').forEach(el => el.innerText = name);
 
+        // DOM Elements
+        const startGameBtn = document.getElementById('start-game-btn');
+        const envelopeContainer = document.getElementById('envelope-container');
+        const mainCard = document.getElementById('main-card');
+        const gameLayer = document.getElementById('game-layer');
+        const scoreEl = document.getElementById('score');
+        const introContent = document.getElementById('intro-content');
+        const finalContent = document.getElementById('final-content');
+        
         // Game Variables
         let score = 0;
         const targetScore = 10;
         let gameActive = false;
         let spawnInterval;
-        const gameLayer = document.getElementById('game-layer');
-        const scoreEl = document.getElementById('score');
         const faces = ['(◕‿◕)', '(^̮^)', 'UwU', '>.<', '♥', 'ᵔᴥᵔ'];
         const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#1dd1a1'];
 
+        // Event Listeners
+        startGameBtn.addEventListener('click', startGame);
+        envelopeContainer.addEventListener('click', () => openEnvelope(envelopeContainer));
+
         // Start Game Function
         function startGame() {
-            document.getElementById('main-card').style.display = 'none';
+            mainCard.style.display = 'none';
             gameLayer.style.display = 'block';
             gameActive = true;
             score = 0;
@@ -417,11 +428,9 @@
 
         // Show the Final Wish
         function showSurprise() {
-            const card = document.getElementById('main-card');
-            card.style.display = 'block';
-            document.getElementById('intro-content').style.display = 'none';
-            document.getElementById('final-content').style.display = 'block';
-
+            mainCard.style.display = 'block';
+            introContent.style.display = 'none';
+            envelopeContainer.style.display = 'flex';
             // Confetti Explosion!
             triggerConfetti();
             setInterval(triggerConfetti, 2000); // Keep raining confetti
@@ -436,23 +445,18 @@
             });
         }
 
+        // Envelope Open Function
+        function openEnvelope(container) {
+            const envelope = container.querySelector('.envelope');
+            const messageContent = container.querySelector('.letter-card p');
 
-
-
-        // Envelope Open Function        function openEnvelope(container) {
-        const envelope = container.querySelector('.envelope');
-        envelope.classList.add('open');
-    function openEnvelope(container) {
-        const envelope = container.querySelector('.envelope');
-        const messageContent = container.querySelector('.letter-card p');
-        
-        // Only proceed if the envelope is not already open
-        if (!envelope.classList.contains('open')) {
-            envelope.classList.add('open');
-            // Set the birthday message
-            messageContent.innerText = `Happy Birthday, ${name}! 🎉🎂 \n`
+            // Only proceed if the envelope is not already open
+            if (!envelope.classList.contains('open')) {
+                envelope.classList.add('open');
+                // Set the birthday message
+                messageContent.innerText = `${birthdayMessage} \n`;
+            }
         }
-    }
 
     </script>
 </body>
