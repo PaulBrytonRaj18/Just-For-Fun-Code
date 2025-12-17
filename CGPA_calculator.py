@@ -1,5 +1,3 @@
-# Complete Python Program to Calculate Student's GPA and CGPA
-
 class Student:
     def __init__(self, name, student_id):
         self.name = name
@@ -105,9 +103,8 @@ class Student:
         print("=" * 60)
 
 
-# Example Usage
 if __name__ == "__main__":
-    # Create a student
+
     student = Student(input("Enter your name: "), input("Enter your student ID: "))
     
     # Semester 1
