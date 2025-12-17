@@ -97,7 +97,7 @@
             width: 100%; height: 100%;
             background: rgba(255, 255, 255, 0.8);
             z-index: 100;
-            display: none; /* Hidden initially */
+            display: none;
             cursor: crosshair;
         }
 
@@ -183,111 +183,122 @@
             border: 2px dashed var(--primary);
         }
 
-
-
-
-
-        /* Letter CSS*/
+        /* Letter CSS */
         :root {
-        --envelope-color: #ff9f7e;
-        --flap-color: #ffb799;
-        --letter-color: #f7f7f7;
-        --shadow-color: rgba(0, 0, 0, 0.2);
-    }
+            --envelope-color: #1169dd;
+            --flap-color: #2379c0;
+            --letter-color: #fff;
+            --shadow-color: rgba(0, 0, 0, 0.15);
+        }
 
-    /* --- Container & Base --- */
-    .envelope-container {
-        display: none;
-        justify-content: center;
-        align-items: center;
-        /* Use relative positioning for placement */
-        position: relative; 
-        width: 300px;
-        height: 200px;
-        margin: 50px auto;
-        cursor: pointer;
-    }
+        /* --- Container & Base --- */
+        .envelopeContainer {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            position: relative; 
+            width: 320px;
+            height: 220px;
+            margin: 30px auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
 
-    .envelope {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        box-shadow: 0 10px 30px var(--shadow-color);
-    }
+        .envelopeContainer:hover {
+            transform: scale(1.05);
+        }
 
-    /* --- Envelope Body (Back & Sides) --- */
-    .envelope-back {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-color: var(--envelope-color);
-        /* Creates the V-shaped bottom fold */
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 75%, 0 100%);
-        z-index: 1;
-    }
+        .envelope {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            box-shadow: 0 15px 40px var(--shadow-color);
+            border-radius: 8px;
+        }
 
-    /* --- Inner Letter Card --- */
-    .letter-card {
-        display: none;
-        position: absolute;
-        width: 90%;
-        height: 90%;
-        top: 5%;
-        left: 5%;
-        background-color: var(--letter-color);
-        border-radius: 5px;
-        padding: 20px;
-        box-sizing: border-box;
-        text-align: center;
-        color: #333;
-        font-family: 'Poppins', sans-serif; /* Recommended font for modern look */
-        line-height: 1.5;
-        
-        /* Initial Position: hidden inside */
-        transform: translateY(0);
-        transition: transform 0.8s ease-in-out 0.4s; /* Delay for flap to open first */
-        z-index: 2; 
-    }
-    
-    .letter-card p {
-        /* Hide the message content itself until fully open */
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out 1s; 
-    }
+        /* --- Envelope Body (Back & Sides) --- */
+        .envelope-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--envelope-color) 0%, #ff4757 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 75%, 0 100%);
+            z-index: 1;
+            border-radius: 8px;
+        }
 
-    /* --- Envelope Flap (The Interactive Part) --- */
-    .envelope-flap {
-        position: absolute;
-        width: 100%;
-        height: 50%;
-        top: 0;
-        left: 0;
-        background-color: var(--flap-color);
-        /* Creates the triangular top flap */
-        clip-path: polygon(0 0, 100% 0, 50% 100%);
-        /* Sets the pivot point at the bottom center of the flap */
-        transform-origin: bottom center;
-        transition: transform 0.4s ease-in-out;
-        z-index: 3;
-    }
+        /* --- Inner Letter Card --- */
+        .letter-card {
+            display: none;
+            position: absolute;
+            width: 85%;
+            height: 130%;
+            top: 5%;
+            left: 7.5%;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            padding: 25px 20px;
+            box-sizing: border-box;
+            text-align: center;
+            color: #2d3436;
+            font-family: 'Nunito', sans-serif;
+            line-height: 1.7;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transform: translateY(0);
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s;
+            z-index: 2;
+            border: 3px solid var(--flap-color);
+        }
 
-    /* --- OPEN STATE STYLES --- */
-    .envelope.open .envelope-flap {
-        /* Rotates the flap backward to open */
-        transform: rotateX(180deg);
-        z-index: 0; /* Move behind the letter card when open */
-    }
+        .letter-card p {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out 0.8s;
+            position: relative;
+            z-index: 10;
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin: 0;
+        }
 
-    .envelope.open .letter-card {
-        /* Slides the letter card down and out */
-        transform: translateY(80%);
-    }
+        /* --- Envelope Flap (The Interactive Part) --- */
+        .envelope-flap {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(180deg, var(--flap-color) 0%, var(--envelope-color) 100%);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: bottom center;
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 3;
+            border-radius: 8px 8px 0 0;
+        }
 
-    .envelope.open .letter-card p {
-        /* Fade in the message content */
-        opacity: 1;
-    }
+        .envelope-flap::before {
+            content: '💌';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            opacity: 0.7;
+        }
 
+        /* --- OPEN STATE STYLES --- */
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+
+        .envelope.open .letter-card {
+            display: block;
+            transform: scale(1.20);
+        }
+
+        .envelope.open .letter-card p {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -302,10 +313,10 @@
             <button class="btn" id="start-game-btn">Start Game 🎈</button>
         </div>
 
-        <div class="envelope-container" id="envelope-container">
-            <div class="envelope">
+        <div class="envelopeContainer" id="envelopeContainer">
+            <div class="envelope" id="envelope">
                 <div class="envelope-back"></div>
-                <div class="letter-card" id="final-content">
+                <div class="letter-card" id="letter-card">
                     <p id="message-content">Your Awesome Birthday Message Goes Here!</p>
                 </div>
                 <div class="envelope-flap"></div>
@@ -318,7 +329,9 @@
     </div>
 
     <script>
-        // CONFIGURATION
+        // ========================================
+        // CONFIGURATION - CHANGE THESE VALUES
+        // ========================================
         const name = "X"; // <--- CHANGE NAME HERE
         const birthdayMessage = "Happy Birthday! I hope you have a wonderful day filled with joy and laughter. Wishing you all the best for the coming year! 🥳"; // <--- CHANGE MESSAGE HERE
 
@@ -327,12 +340,13 @@
 
         // DOM Elements
         const startGameBtn = document.getElementById('start-game-btn');
-        const envelopeContainer = document.getElementById('envelope-container');
+        const envelopeContainer = document.getElementById('envelopeContainer');
+        const envelope = document.getElementById('envelope');
         const mainCard = document.getElementById('main-card');
         const gameLayer = document.getElementById('game-layer');
         const scoreEl = document.getElementById('score');
         const introContent = document.getElementById('intro-content');
-        const finalContent = document.getElementById('final-content');
+        const messageContent = document.getElementById('message-content');
         
         // Game Variables
         let score = 0;
@@ -344,12 +358,13 @@
 
         // Event Listeners
         startGameBtn.addEventListener('click', startGame);
-        envelopeContainer.addEventListener('click', () => openEnvelope(envelopeContainer));
+        envelopeContainer.addEventListener('click', openEnvelope);
 
         // Start Game Function
         function startGame() {
             mainCard.style.display = 'none';
             gameLayer.style.display = 'block';
+            envelopeContainer.style.display = 'block';
             gameActive = true;
             score = 0;
             scoreEl.innerText = score;
@@ -401,8 +416,6 @@
             score++;
             scoreEl.innerText = score;
 
-            // Play a tiny pop sound (optional visually handled by animation)
-            
             // Remove from DOM after animation
             setTimeout(() => {
                 el.remove();
@@ -431,6 +444,7 @@
             mainCard.style.display = 'block';
             introContent.style.display = 'none';
             envelopeContainer.style.display = 'flex';
+            
             // Confetti Explosion!
             triggerConfetti();
             setInterval(triggerConfetti, 2000); // Keep raining confetti
@@ -446,18 +460,14 @@
         }
 
         // Envelope Open Function
-        function openEnvelope(container) {
-            const envelope = container.querySelector('.envelope');
-            const messageContent = container.querySelector('.letter-card p');
-
+        function openEnvelope() {
             // Only proceed if the envelope is not already open
             if (!envelope.classList.contains('open')) {
                 envelope.classList.add('open');
                 // Set the birthday message
-                messageContent.innerText = `${birthdayMessage} \n`;
+                messageContent.innerText = birthdayMessage;
             }
         }
-
     </script>
 </body>
 </html>
