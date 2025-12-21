@@ -307,8 +307,8 @@
 
     <div class="card-container" id="main-card">
         <div id="intro-content">
-            <h1>Hey <span class="name-target">X</span>!</h1>
-            <p>I have a special birthday surprise for you, but it's locked inside a game!</p>
+            <h1>Hey <span class="name-target">J Shivani</span>!</h1>
+            <p>Happy Birthday!<br>Still now I didn't Buy what you asked for, So this is what I can do for now</p>
             <p style="font-size: 0.9rem; color: #888;">(Pop 10 balloons to win)</p>
             <button class="btn" id="start-game-btn">Start Game 🎈</button>
         </div>
@@ -329,11 +329,9 @@
     </div>
 
     <script>
-        // ========================================
-        // CONFIGURATION - CHANGE THESE VALUES
-        // ========================================
-        const name = "X"; // <--- CHANGE NAME HERE
-        const birthdayMessage = "Happy Birthday! I hope you have a wonderful day filled with joy and laughter. Wishing you all the best for the coming year! 🥳"; // <--- CHANGE MESSAGE HERE
+
+        const name = "J Shivani"; 
+        const birthdayMessage = "Happy Birthday di🥳, You are one of the close friends that I have, You are such a kind girl who only talks well with the close one and it's the only Good thing about You. Enjoy your year and always be the girl who you are";
 
         // Apply Name
         document.querySelectorAll('.name-target').forEach(el => el.innerText = name);
@@ -406,6 +404,8 @@
             setTimeout(() => {
                 if(b && b.parentNode) b.remove();
             }, speed * 1000);
+
+                    
         }
 
         // Pop Logic
@@ -424,6 +424,8 @@
             checkWin();
         }
 
+        
+
         // Check Win Condition
         function checkWin() {
             if (score >= targetScore) {
@@ -439,7 +441,7 @@
             }
         }
 
-        // Show the Final Wish
+        // Show Surprise Function
         function showSurprise() {
             mainCard.style.display = 'block';
             introContent.style.display = 'none';
@@ -459,15 +461,22 @@
             });
         }
 
+
+        
         // Envelope Open Function
         function openEnvelope() {
+            setInterval(() => {
+                
+            openEnvelope() 
             // Only proceed if the envelope is not already open
             if (!envelope.classList.contains('open')) {
                 envelope.classList.add('open');
                 // Set the birthday message
                 messageContent.innerText = birthdayMessage;
             }
-        }
+        
+        }, 2000);
+    }
     </script>
 </body>
 </html>
