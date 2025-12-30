@@ -1,8 +1,10 @@
 from PyPDF2 import PdfReader
+from dotenv import load_dotenv
 from google import genai
+import os
+load_dotenv()
 
-
-client = genai.Client()
+client = genai.Client(api_key=os.getenv("USE_YOUR_OWN_API_KEY_DA_NON_SENSE"))
 
 response = client.models.generate_content(
     model="gemini-2.5-flash",
@@ -15,8 +17,9 @@ Give me:
 4. A short final takeaway in plain language.
 
 Keep the summary concise, accurate, and easy to understand. Ignore formatting artifacts or irrelevant page content.
-    """,
-    files=["example.pdf"]  # Replace with your PDF file path
+
+This is the PDF path to summarize: {text}
+    """  # Replace with your PDF file path
 )
 
 
@@ -72,9 +75,9 @@ def summarize_text(text):
     return response.text  
 
 def main():
-    pdf_path = 'example.pdf'  # Replace with your PDF file path
-    output_path = 'output.txt'  # Replace with your desired output file path
-    
+    pdf_path = os.getenv("PDF_PATH")
+    output_path = os.getenv("OUTPUT_PATH")
+
     try:
         text = extract_text_from_pdf(pdf_path)
         save_text_to_file(text, output_path)
